@@ -6,6 +6,9 @@ its own small project. They started life in
 bindings, `net.b12n.raylib-clj.*` over coffi and Java's foreign-function API.
 The demos pull those in as a git dependency pinned to one commit.
 
+The gallery of every demo is at
+<https://b12n-oss.github.io/raylib-clj-demo/>.
+
 You need a JDK 22 or newer, the Clojure CLI, babashka for the tasks, and raylib
 6.0 (`brew install raylib` on macOS). The demos are macOS-first: every one runs
 with `-XstartOnFirstThread`, which macOS requires for OpenGL and other JVMs
@@ -38,6 +41,7 @@ scripts/gen.clj               rebuilds the files that list every demo
 scripts/demo_manifest.edn     screen-grab manifest for `bb record`
 scripts/sync_recordings.clj   copies docs/demos/ recordings into each demo
 .clj-kondo/                   lint config, and the hook that reads coffi's defcfn
+.github/workflows/            ci.yml (doctor, gen --check, lint, compile), site.yml (Pages)
 ```
 
 Each demo's namespace is `net.b12n.raylib-clj.scenes.<demo>`, matching its
@@ -123,11 +127,14 @@ steals the screen while it runs, so leave the machine alone.
 reported, the same gate raylib-clj uses. The 68 warnings today, mostly unused
 bindings, came over with the code. `bb lint:strict` fails on warnings too.
 
-## The site
+## CI and the site
 
-`docs/` builds with [docs-engine](https://github.com/jlt-commons/docs-engine)
-into a gallery of every demo. To build it locally with a docs-engine checkout
-next to this repo:
+`ci.yml` runs on macOS with Homebrew's raylib: `bb doctor`, `bb gen --check`,
+`bb sync-recordings --check`, `bb lint` and `bb check`, on every push and pull
+request. `site.yml` builds `docs/` with
+[docs-engine](https://github.com/jlt-commons/docs-engine) into the gallery,
+runs `docs/check-site.sh` against it, and deploys to GitHub Pages from main. To
+build it locally with a docs-engine checkout next to this repo:
 
 ```sh
 (cd ../docs-engine && jolt run build ../raylib-clj-demo)

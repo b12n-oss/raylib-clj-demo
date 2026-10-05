@@ -1,0 +1,76 @@
+name: CI
+
+# ---------------------------------------------------------------------------
+# Runs on pull requests and pushes to main, plus manual dispatch.
+#
+# macos-latest, not ubuntu-latest: every demo alias carries
+# -XstartOnFirstThread, which macOS needs for GUI/OpenGL work and which any
+# other JVM rejects as an unrecognized option. raylib-clj's own CI runs on
+# macOS for the same reason.
+#
+# The demos load the system libraylib (raylib-clj's bundled libs/ is not on
+# their classpath), so raylib comes from Homebrew. raylib-clj itself arrives as
+# a git dependency pinned in common/deps.edn.
+# ---------------------------------------------------------------------------
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      java-version:
+        description: "JDK to test against (must be 22+ for the Panama FFI)"
+        required: false
+        default: "23"
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: doctor · generated files · lint · compile every scene
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # JDK 22 is the floor: java.lang.foreign is not a supported API before
+      # it, and coffi's downcall handles will not link.
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ inputs.java-version || '23' }}
+
+      - uses: DeLaGuardo/setup-clojure@13
+        with:
+          bb: latest
+          cli: latest
+          clj-kondo: latest
+
+      - name: Install raylib
+        run: brew install raylib
+
+      # Also fetches the pinned raylib-clj, so a bad :git/sha fails here.
+      - name: Doctor
+        run: bb doctor
+
+      # The root deps.edn, check.clj, the per-demo tasks in bb.edn and the
+      # gallery are all built from demos.edn.
+      - name: Generated files match demos.edn
+        run: bb gen --check
+
+      # Each recording lives twice, docs/demos/ for the site and
+      # <demo>/docs/demos/ for the demo. This fails when they disagree.
+      - name: Recordings agree
+        run: bb sync-recordings --check
+
+      # Errors fail; the warnings that came over with the code are reported.
+      - name: clj-kondo
+        run: bb lint
+
+      # Requires every scene namespace, which links the library against
+      # libraylib. Opens no window, since no -main is called.
+      - name: Compile every scene (headless)
+        run: bb check
