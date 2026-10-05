@@ -4,4 +4,4 @@
  ;; commit, then run `bb check`.
  :paths []
  :deps {net.b12n/raylib-clj {:git/url "https://github.com/b12n-oss/raylib-clj.git"
-                             :git/sha "a61974e552f3db46f83711a0a94eab1cc752ae35"}}}
+                             :git/sha "2bc0e632b10fab34eff2be64dd8708ea0d30e01e"}}}

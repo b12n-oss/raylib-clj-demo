@@ -107,19 +107,37 @@
 
   run-all
   {:doc "Every demo for N seconds each (default 4), unattended; exits 1 if any fail"
-   ;; The examples have no auto-quit, so this stops each one itself. A demo
-   ;; still running at the deadline passed; one that exited non-zero before it
-   ;; failed.
+   ;; The examples have no auto-quit, so this stops each one itself. Its clock
+   ;; starts when raylib logs "DISPLAY: Device initialized", so JVM start-up
+   ;; costs nothing extra. A demo still running at the end passed. One that
+   ;; exits non-zero, or never opens its window within 60s, failed.
    :task (let [secs (Long/parseLong (or (first *command-line-args*) "4"))
+               run-one (fn [n]
+                         (let [proc (p/process {:dir n :err :out} "clojure" "-M:run")
+                               rdr (java.io.BufferedReader. (java.io.InputStreamReader. (:out proc)))
+                               ready (promise)
+                               ;; Keeps draining stdout after the window is up, so
+                               ;; a full pipe never blocks the demo.
+                               _ (future
+                                   (try (loop []
+                                          (when-let [l (.readLine rdr)]
+                                            (when (str/includes? l "DISPLAY: Device initialized")
+                                              (deliver ready true))
+                                            (recur)))
+                                        (catch Exception _ nil))
+                                   (deliver ready false))
+                               up (deref ready 60000 false)]
+                           (if up
+                             (do (Thread/sleep (* 1000 secs))
+                                 (if (p/alive? proc)
+                                   (do (p/destroy-tree proc) 0)
+                                   (:exit (deref proc))))
+                             (do (p/destroy-tree proc)
+                                 (let [e (:exit (deref proc 5000 nil))]
+                                   (if (and e (not (zero? e))) e 99))))))
                failed (vec (for [d demos
                                  :let [_ (println (str "▶ " (:name d)))
-                                       proc (p/process {:dir (:name d) :inherit true} "clojure" "-M:run")
-                                       ;; JVM start-up counts against nothing: give it
-                                       ;; 20s on top of the requested run time.
-                                       res (deref proc (* 1000 (+ 20 secs)) :running)
-                                       exit (if (= res :running)
-                                              (do (p/destroy-tree proc) 0)
-                                              (:exit res))]
+                                       exit (run-one (:name d))]
                                  :when (not (zero? exit))]
                              (str (:name d) " (exit " exit ")")))]
            (println (str "\n" (- (count demos) (count failed)) "/" (count demos) " demos ran without failing"))
