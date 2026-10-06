@@ -235,7 +235,7 @@
                          :dir new-dir
                          :grounded? grounded?})))
 
-(defn update-camera-fps [{:keys [player look-rotation head-timer walk-lerp lean]
+(defn update-camera-fps [{:keys [look-rotation head-timer walk-lerp lean]
                           :as game}]
   (let [up {:x 0.0
             :y 1.0

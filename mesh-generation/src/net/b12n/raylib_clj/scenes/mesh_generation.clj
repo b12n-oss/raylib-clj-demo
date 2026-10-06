@@ -76,8 +76,7 @@
   (rcw/init-window! WIDTH HEIGHT "raylib [models] example - procedural shape generation")
   (rct/set-target-fps! 60))
 
-(defn handle-input [{:keys [current-shape]
-                     :as game}]
+(defn handle-input [game]
   (let [num-shapes (count shapes)]
     (cond-> game
       (rck/is-key-pressed? (:q enums/keyboard-key))
@@ -112,7 +111,7 @@
       update-camera))
 
 ;; Shape drawing functions
-(defn draw-cube! [rotation wireframe?]
+(defn draw-cube! [_rotation wireframe?]
   (let [size 2.0
         pos {:x 0
              :y 0
@@ -127,7 +126,7 @@
         (rc3d/draw-cube! pos size size size color)
         (rc3d/draw-cube-wires! pos size size size colors/darkgray)))))
 
-(defn draw-sphere! [rotation wireframe?]
+(defn draw-sphere! [_rotation wireframe?]
   (let [radius 1.5
         pos {:x 0
              :y 0
@@ -142,7 +141,7 @@
         (rc3d/draw-sphere! pos radius color)
         (rc3d/draw-sphere-wires! pos radius 16 16 colors/darkgray)))))
 
-(defn draw-cylinder! [rotation wireframe?]
+(defn draw-cylinder! [_rotation wireframe?]
   (let [pos {:x 0
              :y -1
              :z 0}
@@ -156,7 +155,7 @@
         (rc3d/draw-cylinder! pos 1.0 1.0 2.0 16 color)
         (rc3d/draw-cylinder-wires! pos 1.0 1.0 2.0 16 colors/darkgray)))))
 
-(defn draw-torus! [rotation wireframe?]
+(defn draw-torus! [_rotation _wireframe?]
   ;; Draw torus as a series of circles
   (let [major-radius 1.5
         minor-radius 0.5
@@ -168,11 +167,7 @@
     (doseq [i (range segments)]
       (let [angle (* 2 Math/PI (/ i segments))
             cx (* major-radius (Math/cos angle))
-            cz (* major-radius (Math/sin angle))
-            ;; Draw circle at this position
-            next-angle (* 2 Math/PI (/ (inc i) segments))
-            nx (* major-radius (Math/cos next-angle))
-            nz (* major-radius (Math/sin next-angle))]
+            cz (* major-radius (Math/sin angle))]
         ;; Draw ring segments
         (doseq [j (range 16)]
           (let [ring-angle (* 2 Math/PI (/ j 16))
@@ -197,7 +192,7 @@
                                  :z npz}
                                 color)))))))
 
-(defn draw-cone! [rotation wireframe?]
+(defn draw-cone! [_rotation wireframe?]
   (let [pos {:x 0
              :y -1
              :z 0}
@@ -211,7 +206,7 @@
         (rc3d/draw-cylinder! pos 0.0 1.5 2.0 16 color)
         (rc3d/draw-cylinder-wires! pos 0.0 1.5 2.0 16 colors/darkgray)))))
 
-(defn draw-hemisphere! [rotation wireframe?]
+(defn draw-hemisphere! [_rotation _wireframe?]
   ;; Draw hemisphere as latitude/longitude lines
   (let [radius 1.5
         color {:r 255
@@ -254,7 +249,7 @@
                                  :z (* r2 (Math/sin lon))}
                                 color)))))))
 
-(defn draw-capsule! [rotation wireframe?]
+(defn draw-capsule! [_rotation wireframe?]
   ;; Capsule = cylinder with hemispherical caps
   (let [radius 0.8
         height 1.5
@@ -287,7 +282,7 @@
                           :y (- (/ height 2))
                           :z 0} radius color))))
 
-(defn draw-polygon! [rotation wireframe?]
+(defn draw-polygon! [_rotation _wireframe?]
   ;; Draw a pentagon prism
   (let [sides 5
         radius 1.5
@@ -336,7 +331,7 @@
                                     :y y-bot
                                     :z z1} color)))))
 
-(defn draw-star! [rotation wireframe?]
+(defn draw-star! [_rotation _wireframe?]
   ;; 3D star shape
   (let [outer-radius 2.0
         inner-radius 0.8
@@ -373,7 +368,7 @@
                                      :y -1.0
                                      :z 0} color)))))
 
-(defn draw-spiral! [rotation wireframe?]
+(defn draw-spiral! [_rotation _wireframe?]
   ;; 3D spiral/helix
   (let [radius 1.0
         height 3.0

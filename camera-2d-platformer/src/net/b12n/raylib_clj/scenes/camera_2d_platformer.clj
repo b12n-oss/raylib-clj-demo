@@ -97,7 +97,7 @@
                    (- (* PLAYER-HOR-SPD delta))
                    (rck/is-key-down? (:right enums/keyboard-key))
                    (+ (* PLAYER-HOR-SPD delta)))
-        [player-speed can-jump]
+        [player-speed _]
         (if (and (rck/is-key-down? (:space enums/keyboard-key)) can-jump)
           [(- PLAYER-JUMP-SPD) false]
           [player-speed can-jump])
@@ -168,30 +168,30 @@
                    (< (:y max-screen) screen-height)
                    (- (- (:y max-screen) screen-height) (- (/ screen-height 2.0)))
                    (> (:y min-screen) 0)
-                   (- (:y min-screen) (/ screen-height 2.0)))]
-    ;; Recompute with corrected offsets
-    (let [cam2 (assoc camera :offset {:x offset-x
-                                      :y offset-y})
-          max-screen2 (rc2d/get-world-to-screen-2d {:x max-x
-                                                    :y max-y} cam2)
-          min-screen2 (rc2d/get-world-to-screen-2d {:x min-x
-                                                    :y min-y} cam2)
-          ox (:x (:offset cam2))
-          oy (:y (:offset cam2))
-          ox (cond
-               (< (:x max-screen2) screen-width)
-               (+ screen-width (- (/ screen-width 2.0) (:x max-screen2)))
-               (> (:x min-screen2) 0)
-               (- (/ screen-width 2.0) (:x min-screen2))
-               :else ox)
-          oy (cond
-               (< (:y max-screen2) screen-height)
-               (+ screen-height (- (/ screen-height 2.0) (:y max-screen2)))
-               (> (:y min-screen2) 0)
-               (- (/ screen-height 2.0) (:y min-screen2))
-               :else oy)]
-      (assoc state :camera (assoc cam2 :offset {:x ox
-                                                :y oy})))))
+                   (- (:y min-screen) (/ screen-height 2.0)))
+        ;; Recompute with corrected offsets
+        cam2 (assoc camera :offset {:x offset-x
+                                    :y offset-y})
+        max-screen2 (rc2d/get-world-to-screen-2d {:x max-x
+                                                  :y max-y} cam2)
+        min-screen2 (rc2d/get-world-to-screen-2d {:x min-x
+                                                  :y min-y} cam2)
+        ox (:x (:offset cam2))
+        oy (:y (:offset cam2))
+        ox (cond
+             (< (:x max-screen2) screen-width)
+             (+ screen-width (- (/ screen-width 2.0) (:x max-screen2)))
+             (> (:x min-screen2) 0)
+             (- (/ screen-width 2.0) (:x min-screen2))
+             :else ox)
+        oy (cond
+             (< (:y max-screen2) screen-height)
+             (+ screen-height (- (/ screen-height 2.0) (:y max-screen2)))
+             (> (:y min-screen2) 0)
+             (- (/ screen-height 2.0) (:y min-screen2))
+             :else oy)]
+    (assoc state :camera (assoc cam2 :offset {:x ox
+                                              :y oy}))))
 
 (defn camera-smooth-follow [{:keys [player-x player-y camera]
                              :as state} delta]

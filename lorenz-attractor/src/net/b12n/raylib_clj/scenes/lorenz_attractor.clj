@@ -131,8 +131,7 @@
 (defn update-simulation [{:keys [animate? sigma rho beta points]
                           :as game}]
   (if animate?
-    (let [last-point (last points)
-          ;; Add multiple points per frame for smoother curves
+    (let [;; Add multiple points per frame for smoother curves
           new-points (reduce (fn [pts _]
                                (let [p (last pts)
                                      new-p (rk4-step p sigma rho beta DT)]
@@ -194,8 +193,7 @@
       (let [head (point->screen (last points))]
         (rc3d/draw-sphere! head 0.2 colors/white)))))
 
-(defn draw [{:keys [camera sigma rho beta points animate?]
-             :as game}]
+(defn draw [{:keys [camera sigma rho beta points animate?]}]
   (rcd/begin-drawing!)
   (rcd/clear-background! {:r 10
                           :g 10

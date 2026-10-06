@@ -55,9 +55,6 @@
   (rct/set-target-fps! 60)
   (debug-stats/enable!))
 
-(defn- dist [p1 p2]
-  (Math/hypot (- (:x p1) (:x p2)) (- (:y p1) (:y p2))))
-
 (defn- clamp-ball [{:keys [pos vel radius elasticity]
                     :as ball}]
   (let [{:keys [x y]} pos

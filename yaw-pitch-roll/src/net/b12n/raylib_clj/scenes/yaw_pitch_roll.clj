@@ -108,8 +108,9 @@
   (rcw/init-window! WIDTH HEIGHT "raylib [models] example - yaw pitch roll")
   (rct/set-target-fps! 60))
 
-(defn smooth-return [value speed]
+(defn smooth-return 
   "Smoothly return value toward 0"
+  [value speed]
   (cond
     (> value speed) (- value speed)
     (< value (- speed)) (+ value speed)
@@ -156,15 +157,17 @@
 (defn tick [game]
   (handle-input game))
 
-(defn make-rotation-matrix [pitch yaw roll]
+(defn make-rotation-matrix 
   "Create combined rotation matrix for yaw, pitch, roll (in that order)"
+  [pitch yaw roll]
   (let [rx (rotate-x (* pitch DEG2RAD))
         ry (rotate-y (* yaw DEG2RAD))
         rz (rotate-z (* roll DEG2RAD))]
     (mat-mult rz (mat-mult rx ry))))
 
-(defn draw-airplane! [matrix color]
+(defn draw-airplane! 
   "Draw wireframe airplane with given transformation matrix"
+  [matrix color]
   (let [transform (fn [[x y z]]
                     (let [[tx ty tz] (transform-point matrix [x y z])]
                       {:x tx
@@ -191,8 +194,9 @@
           nose-tip (transform [0 0 -4])]
       (rc3d/draw-line-3d! nose nose-tip colors/yellow))))
 
-(defn draw-axes! [matrix size]
+(defn draw-axes! 
   "Draw rotated coordinate axes"
+  [matrix size]
   (let [origin [0 0 0]
         transform (fn [[x y z]]
                     (let [[tx ty tz] (transform-point matrix [x y z])]

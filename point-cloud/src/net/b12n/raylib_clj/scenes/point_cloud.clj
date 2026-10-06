@@ -74,7 +74,7 @@
   (rcw/init-window! WIDTH HEIGHT "raylib [models] example - point cloud")
   (rct/set-target-fps! 60))
 
-(defn handle-input [{:keys [num-points max-radius]
+(defn handle-input [{:keys [max-radius]
                      :as game}]
   (cond-> game
     (rck/is-key-pressed? (:q enums/keyboard-key))

@@ -133,8 +133,7 @@
       old-pos
       new-pos)))
 
-(defn handle-input [{:keys [maze]
-                     :as game}]
+(defn handle-input [game]
   (cond-> game
     (rck/is-key-pressed? (:q enums/keyboard-key))
     (assoc :exit? true)

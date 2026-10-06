@@ -68,22 +68,21 @@
   (rct/set-target-fps! 60))
 
 (defn handle-input [game]
-  (let [player-pos (:player-pos game)]
-    (cond-> game
-      (rck/is-key-pressed? (:q enums/keyboard-key))
-      (assoc :exit? true)
+  (cond-> game
+    (rck/is-key-pressed? (:q enums/keyboard-key))
+    (assoc :exit? true)
 
-      (rck/is-key-down? (:right enums/keyboard-key))
-      (update-in [:player-pos :x] + MOVE_SPEED)
+    (rck/is-key-down? (:right enums/keyboard-key))
+    (update-in [:player-pos :x] + MOVE_SPEED)
 
-      (rck/is-key-down? (:left enums/keyboard-key))
-      (update-in [:player-pos :x] - MOVE_SPEED)
+    (rck/is-key-down? (:left enums/keyboard-key))
+    (update-in [:player-pos :x] - MOVE_SPEED)
 
-      (rck/is-key-down? (:down enums/keyboard-key))
-      (update-in [:player-pos :z] + MOVE_SPEED)
+    (rck/is-key-down? (:down enums/keyboard-key))
+    (update-in [:player-pos :z] + MOVE_SPEED)
 
-      (rck/is-key-down? (:up enums/keyboard-key))
-      (update-in [:player-pos :z] - MOVE_SPEED))))
+    (rck/is-key-down? (:up enums/keyboard-key))
+    (update-in [:player-pos :z] - MOVE_SPEED)))
 
 (defn check-collisions [{:keys [player-pos player-size
                                 enemy-box-pos enemy-box-size

@@ -99,7 +99,7 @@
       handle-input
       update-camera))
 
-(defn draw-scene [{:keys [camera]}]
+(defn draw-scene [_game]
   ;; Draw some reference geometry
   ;; Central pillar
   (rc3d/draw-cube! {:x 0.0

@@ -185,7 +185,7 @@
                            :active? true})))
       game)))
 
-(defn handle-input [{:keys [game-over? paused?]
+(defn handle-input [{:keys [game-over?]
                      :as game}]
   (cond-> game
     (rck/is-key-pressed? (:q enums/keyboard-key))

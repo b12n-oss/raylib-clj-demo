@@ -34,8 +34,7 @@
   (rct/set-target-fps! 60)
   (debug-stats/enable!))
 
-(defn tick [{:keys [exit-requested]
-             :as state}]
+(defn tick [state]
   (debug-stats/update!)
   (let [close-requested (or (rcw/window-should-close?)
                             (rck/is-key-pressed? (:escape enums/keyboard-key)))

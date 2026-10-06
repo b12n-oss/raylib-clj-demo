@@ -57,8 +57,7 @@
   (rcw/init-window! WIDTH HEIGHT "raylib [models] example - DNA helix")
   (rct/set-target-fps! 60))
 
-(defn handle-input [{:keys [helix-turns helix-radius]
-                     :as game}]
+(defn handle-input [game]
   (cond-> game
     (rck/is-key-pressed? (:q enums/keyboard-key))
     (assoc :exit? true)

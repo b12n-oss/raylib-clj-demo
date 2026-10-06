@@ -99,8 +99,7 @@
   (rcw/init-window! WIDTH HEIGHT "raylib [models] example - 3D particle system")
   (rct/set-target-fps! 60))
 
-(defn handle-input [{:keys [particles]
-                     :as game}]
+(defn handle-input [game]
   (cond-> game
     (rck/is-key-pressed? (:q enums/keyboard-key))
     (assoc :exit? true)
@@ -118,7 +117,7 @@
     (rck/is-key-pressed? (:r enums/keyboard-key))
     (assoc :particles [] :emit-accumulator 0.0)))
 
-(defn update-particle [{:keys [position velocity age lifetime size hue]
+(defn update-particle [{:keys [position velocity age lifetime]
                         :as particle}
                        dt gravity? wind? time]
   (let [;; Apply forces

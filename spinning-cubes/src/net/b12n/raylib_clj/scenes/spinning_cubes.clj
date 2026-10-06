@@ -94,7 +94,6 @@
 
 (defn draw-spinning-cube [{:keys [pos size speed hue]} rotation]
   (let [;; Calculate individual rotation angle
-        angle (* rotation speed 60.0) ; Convert to degrees
         ;; Animate hue over time
         animated-hue (mod (+ hue (* rotation 20.0)) 360.0)
         color (ru/color-from-hsv (float animated-hue) 0.8 0.9)

@@ -79,7 +79,7 @@
   (rct/set-target-fps! 60)
   (debug-stats/enable!))
 
-(defn tick [{:keys [state frames-counter rec rotation alpha]
+(defn tick [{:keys [state frames-counter rec]
              :as s}]
   (debug-stats/update!)
   (if (rck/is-key-pressed? (:space enums/keyboard-key))

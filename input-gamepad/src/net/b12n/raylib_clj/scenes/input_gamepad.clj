@@ -65,8 +65,7 @@
 (defn apply-trigger-deadzone [value deadzone]
   (if (< value deadzone) -1.0 value))
 
-(defn handle-input [{:keys [gamepad]
-                     :as game}]
+(defn handle-input [game]
   (cond-> game
     (rck/is-key-pressed? (:left enums/keyboard-key))
     (update :gamepad #(max 0 (dec %)))

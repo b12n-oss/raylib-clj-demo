@@ -97,7 +97,7 @@
     ;; Disable cursor for camera control
     (rcur/disable-cursor!)))
 
-(defn tick [{:keys [camera camera-ptr cube-position]
+(defn tick [{:keys [camera-ptr cube-position]
              :as game}]
   (debug-stats/update!)
 

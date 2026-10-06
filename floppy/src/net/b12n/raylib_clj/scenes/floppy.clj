@@ -84,7 +84,7 @@
         dist-sq (+ (* dx dx) (* dy dy))]
     (< dist-sq (* radius radius))))
 
-(defn handle-input [{:keys [game-over? paused?]
+(defn handle-input [{:keys [game-over?]
                      :as game}]
   (cond-> game
     (rck/is-key-pressed? (:q enums/keyboard-key))

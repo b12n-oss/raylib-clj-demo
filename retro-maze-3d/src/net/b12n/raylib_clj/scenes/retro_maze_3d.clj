@@ -223,7 +223,7 @@
 ;; Update Functions
 ;; ============================================================================
 
-(defn update-title [{:keys [menu-option title-anim-y]
+(defn update-title [{:keys [title-anim-y]
                      :as game}]
   (let [new-anim-y (min 20 (+ title-anim-y 2))]
     (cond-> (assoc game :title-anim-y new-anim-y)
@@ -286,7 +286,7 @@
         (assoc-in [:camera :position] new-pos)
         (assoc-in [:camera :target] new-target))))
 
-(defn update-gameplay [{:keys [frames paused collision-map camera exit-cell stamina time-remaining]
+(defn update-gameplay [{:keys [paused exit-cell]
                         :as game}]
   (cond
     ;; Toggle pause

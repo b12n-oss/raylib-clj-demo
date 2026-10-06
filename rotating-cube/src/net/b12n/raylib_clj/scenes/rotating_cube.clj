@@ -55,8 +55,7 @@
   (rcw/init-window! WIDTH HEIGHT "raylib [models] example - rotating cube")
   (rct/set-target-fps! 60))
 
-(defn handle-input [{:keys [rotation-speed]
-                     :as game}]
+(defn handle-input [game]
   (let [;; Change rotation axis
         new-axis (cond
                    (rck/is-key-pressed? (:up enums/keyboard-key))

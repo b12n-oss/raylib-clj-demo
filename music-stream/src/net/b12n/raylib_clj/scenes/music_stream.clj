@@ -24,8 +24,7 @@
    :pan 0.0
    :volume 0.8})
 
-(defn update-state [{:keys [paused pan volume]
-                     :as state} music]
+(defn update-state [{:keys [paused pan volume]} music]
   ;; Update music buffer
   (ra/update-music-stream! music)
 

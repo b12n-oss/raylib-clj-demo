@@ -204,7 +204,7 @@
   (let [result (rcol/check-collision-circles? (vec->point center1) (float radius1) (vec->point center2) (float radius2))]
     (if (boolean? result) result (pos? result))))
 
-(defn ship-collides-asteroid? [sps {:keys [position size]
+(defn ship-collides-asteroid? [sps {:keys [position]
                                     :as asteroid}]
   (not (every? false?
                (map (fn [point]
@@ -427,7 +427,7 @@
   ;; Draw debug stats overlay (F1 to toggle)
   (debug-stats/draw!))
 
-(defn draw-ending [game]
+(defn draw-ending [_game]
   (let [text "You DIED. Press ENTER to restart"
         size 20
         width (rtd/measure-text text size)]
@@ -472,8 +472,7 @@
     (rtl/draw-texture-pro! (:texture target) source dest {:x 0.0
                                                           :y 0.0} 0.0 colors/white)))
 
-(defn draw [{:keys [screen]
-             :as game}]
+(defn draw [game]
   (try
     ;; First render game to virtual resolution texture
     (draw-to-render-texture game)
@@ -522,7 +521,7 @@
   ;; Enable debug stats - press F1 to toggle
   (debug-stats/enable!))
 
-(defn -main [& args]
+(defn -main [& _args]
   (nrepl/start {:port 7888})
   (init)
   (loop []

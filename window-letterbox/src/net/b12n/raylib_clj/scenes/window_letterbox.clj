@@ -50,8 +50,7 @@
     (rtl/set-texture-filter! (:texture target) TEXTURE-FILTER-BILINEAR)
     (swap! game-atom assoc :target target)))
 
-(defn tick [{:keys [bar-colors]
-             :as state}]
+(defn tick [state]
   (debug-stats/update!)
   (if (rck/is-key-pressed? (:space enums/keyboard-key))
     (assoc state :bar-colors (vec (repeatedly 10 random-color)))

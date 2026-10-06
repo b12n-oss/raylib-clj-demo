@@ -230,46 +230,44 @@
              :a 255}))) ; Snow white
 
 (defn draw-terrain! [heightmap wireframe? amplitude]
-  (let [half-grid (* GRID_SIZE CELL_SIZE 0.5)]
-    (doseq [z (range (dec GRID_SIZE))
-            x (range (dec GRID_SIZE))]
-      (let [h00 (get-in heightmap [z x] 0)
-            h10 (get-in heightmap [z (inc x)] 0)
-            h01 (get-in heightmap [(inc z) x] 0)
-            h11 (get-in heightmap [(inc z) (inc x)] 0)
-            avg-h (/ (+ h00 h10 h01 h11) 4.0)
-            color (height->color avg-h amplitude)
-            ;; Convert grid to world coords
-            x0 (* x CELL_SIZE)
-            z0 (* z CELL_SIZE)
-            x1 (* (inc x) CELL_SIZE)
-            z1 (* (inc z) CELL_SIZE)
-            ;; Triangle vertices
-            p00 {:x x0
-                 :y h00
-                 :z z0}
-            p10 {:x x1
-                 :y h10
-                 :z z0}
-            p01 {:x x0
-                 :y h01
-                 :z z1}
-            p11 {:x x1
-                 :y h11
-                 :z z1}]
-        (if wireframe?
-          (do
-            (rc3d/draw-line-3d! p00 p10 colors/green)
-            (rc3d/draw-line-3d! p00 p01 colors/green)
-            (rc3d/draw-line-3d! p10 p11 colors/green)
-            (rc3d/draw-line-3d! p01 p11 colors/green))
-          (do
-            ;; Draw two triangles per cell
-            (rc3d/draw-triangle-3d! p00 p01 p10 color)
-            (rc3d/draw-triangle-3d! p10 p01 p11 color)))))))
+  (doseq [z (range (dec GRID_SIZE))
+          x (range (dec GRID_SIZE))]
+    (let [h00 (get-in heightmap [z x] 0)
+          h10 (get-in heightmap [z (inc x)] 0)
+          h01 (get-in heightmap [(inc z) x] 0)
+          h11 (get-in heightmap [(inc z) (inc x)] 0)
+          avg-h (/ (+ h00 h10 h01 h11) 4.0)
+          color (height->color avg-h amplitude)
+          ;; Convert grid to world coords
+          x0 (* x CELL_SIZE)
+          z0 (* z CELL_SIZE)
+          x1 (* (inc x) CELL_SIZE)
+          z1 (* (inc z) CELL_SIZE)
+          ;; Triangle vertices
+          p00 {:x x0
+               :y h00
+               :z z0}
+          p10 {:x x1
+               :y h10
+               :z z0}
+          p01 {:x x0
+               :y h01
+               :z z1}
+          p11 {:x x1
+               :y h11
+               :z z1}]
+      (if wireframe?
+        (do
+          (rc3d/draw-line-3d! p00 p10 colors/green)
+          (rc3d/draw-line-3d! p00 p01 colors/green)
+          (rc3d/draw-line-3d! p10 p11 colors/green)
+          (rc3d/draw-line-3d! p01 p11 colors/green))
+        (do
+          ;; Draw two triangles per cell
+          (rc3d/draw-triangle-3d! p00 p01 p10 color)
+          (rc3d/draw-triangle-3d! p10 p01 p11 color))))))
 
-(defn draw [{:keys [camera heightmap show-grid? wireframe? frequency amplitude]
-             :as game}]
+(defn draw [{:keys [camera heightmap show-grid? wireframe? frequency amplitude]}]
   (rcd/begin-drawing!)
   (rcd/clear-background! {:r 135
                           :g 206

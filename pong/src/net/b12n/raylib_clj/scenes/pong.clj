@@ -203,7 +203,7 @@
         (recur))))
   (rcw/close-window!))
 
-(defn -main [& args]
+(defn -main [& _args]
   (start))
 
 (comment

@@ -65,7 +65,7 @@
 
 (defn draw-wireframe-pyramid
   "Draw a wireframe pyramid at position with given size"
-  [pos size color time]
+  [pos size color _time]
   (let [half (/ size 2.0)
         height size
         ;; Base corners

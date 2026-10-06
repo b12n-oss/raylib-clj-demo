@@ -51,7 +51,7 @@
   (let [scarfy (rtl/load-texture! "resources/scarfy.png")]
     (swap! game-atom assoc :scarfy scarfy)))
 
-(defn update-animation [{:keys [scarfy frames-counter frames-speed current-frame]
+(defn update-animation [{:keys [frames-counter frames-speed current-frame]
                          :as game}]
   (let [new-counter (inc frames-counter)]
     (if (>= new-counter (/ 60 frames-speed))

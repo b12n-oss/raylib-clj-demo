@@ -1358,10 +1358,6 @@
   (let [grid-size 100
         start-x (- (mod (:x camera) grid-size))
         start-y (- (mod (:y camera) grid-size))
-        dark-bg {:r 15
-                 :g 15
-                 :b 25
-                 :a 255}
         grid-color {:r 30
                     :g 30
                     :b 45
