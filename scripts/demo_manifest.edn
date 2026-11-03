@@ -222,13 +222,19 @@
                           [4.4 :click 610 360 {:hold 300}]          ; Draw RingLines on
                           [5.0 :click 610 390 {:hold 300}]          ; Draw CircleLines on
                           [5.6 :move 660 250]]}
-  "recursive-tree" {:input [[0.4 :drag 700 50 660 50]   ; Angle
-                            [1.3 :drag 700 80 740 80]   ; Length
-                            [2.2 :drag 700 110 730 110] ; Decay
-                            [3.1 :drag 700 140 670 140] ; Depth
-                            [4.0 :drag 700 170 720 170] ; Thick
-                            [4.8 :click 650 200 {:hold 300}]        ; Bezier on
-                            [5.5 :drag 700 50 720 50]]}
+  ;; Global clicks/drags (screen-grab 4a364cf) resolve --window against the
+  ;; window FRAME, so y is the slider's content y + 28 (title bar). Sliders sit
+  ;; at content y 40/70/100/130/160 (+10 to centre), the checkbox at 190. A
+  ;; raygui slider takes the pointer's x as its value, so each drag starts at
+  ;; the current value's x and ends on a value that still draws a full tree.
+  "recursive-tree" {:input [[0.4 :drag 667 78 700 78]   ; Angle 40 -> 90
+                            [1.2 :drag 700 78 660 78]   ; Angle 90 -> 30
+                            [2.0 :drag 759 168 693 168] ; Depth 10 -> 5
+                            [2.8 :drag 693 168 759 168] ; Depth 5 -> 9
+                            [3.6 :drag 739 138 728 138] ; Decay 0.66 -> 0.60
+                            [4.4 :drag 640 198 674 198] ; Thick 1 -> 3
+                            [5.0 :move 650 228]
+                            [5.2 :click 650 228 {:hold 300}]]}  ; Bezier on
   ;; Drag inside the canvas to draw; the strokes are what the six-fold
   ;; symmetry acts on, then < steps back through them.
   "kaleidoscope" {:input [[0.4 :drag 300 200 420 260]
@@ -408,7 +414,14 @@
   ;; endpoints default to (30,30) and (770,420); drag the start endpoint.
   "lines-bezier"       {:input [[1.0 :drag 30 30 300 300]]}
   "easings-ball"       {:input [[0.3 :key "enter"]]}
-  "simple-particles"   {:input [[1.0 :key "right"] [2.0 :click 400 225 {:hold 300}]]}
+  ;; The emitter follows the pointer while the button is down. raylib reads
+  ;; the pointer from motion events, so :move first or the press lands with a
+  ;; stale position (the 2026-11-03 take emitted from the left edge). y is
+  ;; content y + 28 (frame-relative). :key never reaches raylib (cgevent#6),
+  ;; so the particle type stays WATER.
+  "simple-particles"   {:input [[0.8 :move 400 253] [1.0 :click 400 253 {:hold 300}]
+                                [2.2 :move 220 178] [2.4 :click 220 178 {:hold 300}]
+                                [3.6 :move 600 318] [3.8 :click 600 318 {:hold 300}]]}
   "dashed-line"        {:input [[1.0 :key "right"] [2.0 :key "c"]]}
   "starfield-effect"   {:input [[1.0 :key "space"] [2.5 :scroll 0 2]]}
   "easings-box"        {:input [[0.3 :key "space"]]}
