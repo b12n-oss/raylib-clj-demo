@@ -55,7 +55,7 @@
   "input-virtual-controls" {:sha "48e59729feba82944bb9b841e1819a1a460027b9111b19b520536786872845dc", :settings [6 10 480 "gif"], :bytes 7144, :at "2026-10-06T01:27:36.025464Z"}
   "kaleidoscope" {:sha "d5a9c0d95386127dc52aa95d75d3063bed68bae257a6f2514ead0511d21e83ba", :settings [6 10 480 "gif"], :bytes 8091, :at "2026-11-03T07:59:36.391663Z"}
   "keyboard-testbed" {:sha "bd1cef8bf7251a98a7377adc4152e95553c3a5c5410d448bd6cfb7b9411df061", :settings [6 10 480 "gif"], :bytes 36339, :at "2026-11-03T09:03:26.818066Z"}
-  "lines-bezier" {:sha "2d839db68298fb0b444cf3ed3954a3a6c750dc9a8b23175658403aa33faa30f1", :settings [6 10 480 "gif"], :bytes 7166, :at "2026-10-06T01:27:36.025466Z"}
+  "lines-bezier" {:sha "2d839db68298fb0b444cf3ed3954a3a6c750dc9a8b23175658403aa33faa30f1", :settings [6 10 480 "gif"], :bytes 49654, :at "2026-11-04T01:04:36.369328Z"}
   "lines-drawing" {:sha "19dc50154c2e5d18ae647397698d574fca10a57cd73febedca883c7ae193d396", :settings [6 10 480 "gif"], :bytes 9002, :at "2026-11-03T09:03:26.818076Z"}
   "lissajous-3d" {:sha "a2f04064a4f6e0d39c26216db00d409e311fe8dfd340d0ec78c146cf5ffb612e", :settings [6 10 480 "gif"], :bytes 190438, :at "2026-10-06T01:27:36.025468Z"}
   "logo-anim" {:sha "1069bcc681c83de6a1a2418acbd619dececfb86a1190f00d23ae0e424a1ae1b6", :settings [6 10 480 "gif"], :bytes 21982, :at "2026-10-06T01:27:36.025470Z"}
@@ -72,12 +72,12 @@
   "palette-switch" {:sha "09f780740d6d7e455fbc1fb208d0a38ba1d7fb582882db19bab164e1b07dba59", :settings [6 10 480 "gif"], :bytes 6938, :at "2026-10-06T01:27:36.025480Z"}
   "particle-system" {:sha "d2dbfef13f3e8e7fdabb156008144641feba459c982bb16839c83c847262c63a", :settings [6 10 480 "gif"], :bytes 297839, :at "2026-10-06T01:27:36.025481Z"}
   "penrose-tile" {:sha "ac1d80f16ec263d54feb996b651c9623329c49f7a637a504b9c415e87bc8b960", :settings [6 10 480 "gif"], :bytes 4909, :at "2026-10-06T01:27:36.025482Z"}
-  "picking-3d" {:sha "1d3a2d98a2d6416be9ff5cd98237e009f5e88296cd49e350f11e07b6d2642633", :settings [6 10 480 "gif"], :bytes 10837, :at "2026-10-06T01:27:36.025483Z"}
+  "picking-3d" {:sha "1d3a2d98a2d6416be9ff5cd98237e009f5e88296cd49e350f11e07b6d2642633", :settings [6 10 480 "gif"], :bytes 35032, :at "2026-11-03T09:31:08.658618Z"}
   "point-cloud" {:sha "fa5c1e8a83b9eee6f6f1721d259997a68dd3ecd09ee8f2898153d96931023ccf", :settings [6 10 480 "gif"], :bytes 864553, :at "2026-10-06T01:27:36.025484Z"}
   "pong" {:sha "bcf5b02411aacbfd2734ca299114c858f4c809e081df842cce0b27a83f6b6956", :settings [6 10 480 "gif"], :bytes 2639, :at "2026-10-06T01:27:36.025485Z"}
   "random-values" {:sha "81ed9530fdd123828b7d23d6530cfc608ba4490c6574948d64ecf5170a2c5e4b", :settings [6 10 480 "gif"], :bytes 5967, :at "2026-10-06T01:27:36.025485Z"}
   "ray-picking" {:sha "25d570c7c6ab83ff2778a35a3c9791cbf0c6a799db81657f7a23e194ad5462c9", :settings [6 10 480 "gif"], :bytes 26332, :at "2026-10-06T01:27:36.025488Z"}
-  "rectangle-scaling" {:sha "ba07079cad05649fec67a4da990a3a7c73bfa2f83d16f32e450ba53301288b3c", :settings [6 10 480 "gif"], :bytes 4864, :at "2026-10-06T01:27:36.025489Z"}
+  "rectangle-scaling" {:sha "ba07079cad05649fec67a4da990a3a7c73bfa2f83d16f32e450ba53301288b3c", :settings [6 10 480 "gif"], :bytes 19113, :at "2026-11-04T01:04:36.369612Z"}
   "recursive-tree" {:sha "33448d0235eac93ac3401915c3e8d8430ff6574b4fbf3e00d75a9f35bd8b6054", :settings [6 10 480 "gif"], :bytes 112014, :at "2026-11-03T08:22:16.070311Z"}
   "render-texture" {:sha "3a78e74227308f3c5c2cc236fe62bcf860ac1cdf0df36d011b13e569d1b350ac", :settings [6 10 480 "gif"], :bytes 194883, :at "2026-10-06T01:27:36.025490Z"}
   "retro-maze-3d" {:sha "648f17e393a5cada3186fddfb868e83c4c402a51f7ae9b48448eb159e6ec7acd", :settings [6 10 480 "gif"], :bytes 20923, :at "2026-10-06T01:27:36.025491Z"}

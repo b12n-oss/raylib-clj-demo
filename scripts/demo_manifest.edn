@@ -368,7 +368,13 @@
   "first-person-3d"    {:input [[1.0 :key "w"] [2.0 :key "a"] [3.0 :key "d"]]}
   "camera-fps"         {:input [[1.0 :key "w"] [2.0 :key "space"] [3.0 :key "d"]]}
   "world-screen"       {:input [[1.0 :move 500 300] [2.5 :scroll 0 2]]}
-  "picking-3d"         {:input [[1.5 :click 350 200 {:hold 300}] [3.0 :click 500 300 {:hold 300}]]}
+  ;; The camera targets the origin, so (400,225) is the origin; the 2x2x2 cube
+  ;; sits one unit up, centred near (400,199) and about 70px across. The pick
+  ;; ray is cast from the pointer on the press, so :move first or it is cast
+  ;; from a stale position. Select, click empty floor to deselect, reselect.
+  "picking-3d"         {:input [[1.0 :move 400 199] [1.2 :click 400 199 {:hold 300}]
+                                [2.6 :move 600 360] [2.8 :click 600 360 {:hold 300}]
+                                [4.0 :move 405 205] [4.2 :click 405 205 {:hold 300}]]}
   "collision-area"     {:input [[1.0 :move 500 300] [2.0 :key "space"]]}
   "colors-palette"     {:input [[1.0 :move 400 225] [2.0 :key "space"]]}
   "logo-anim"          {:input [[0.3 :key "r"]]}
@@ -410,11 +416,17 @@
   ;; shapes
   "logo-raylib-anim"   {:input [[0.3 :key "r"]]}
   ;; rectangle at (100,100) 200x80 -> resize handle is the 12x12 mark at its
-  ;; bottom-right corner, ~(288-300, 168-180); drag must start inside it.
-  "rectangle-scaling"  {:input [[1.0 :drag 294 174 480 320]]}
+  ;; bottom-right corner, (288-300, 168-180). scale-mode starts only when the
+  ;; press registers while the pointer is on the mark. raylib registers a
+  ;; press only after ~250ms of button-down, so :hold keeps the pointer on the
+  ;; mark that long before the drag moves (cgevent E.58).
+  "rectangle-scaling"  {:input [[0.8 :move 294 174] [1.0 :drag 294 174 520 340 {:hold 300 :steps 80}]]}
   "mouse-trail"        {:input [[1.0 :move 200 150] [2.5 :move 600 350] [4.0 :move 400 225]]}
-  ;; endpoints default to (30,30) and (770,420); drag the start endpoint.
-  "lines-bezier"       {:input [[1.0 :drag 30 30 300 300]]}
+  ;; Endpoints default to (30,30) and (770,420), grabbed within a 10px radius
+  ;; on the frame that registers the press, so each drag holds first (see
+  ;; rectangle-scaling).
+  "lines-bezier"       {:input [[0.6 :move 30 30]   [0.8 :drag 30 30 300 300 {:hold 300 :steps 60}]
+                                [2.8 :move 770 420] [3.0 :drag 770 420 520 200 {:hold 300 :steps 60}]]}
   "easings-ball"       {:input [[0.3 :key "enter"]]}
   ;; The emitter follows the pointer while the button is down. raylib reads
   ;; the pointer from motion events, so :move first or the press lands with a
