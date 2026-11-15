@@ -54,4 +54,4 @@ each demo's page says which. The rest were written for raylib-clj, six of
 them first by Ertuğrul Çetin in raylib-clojure-playground, where the project
 began. The
 [NOTICE](https://github.com/b12n-oss/raylib-clj-demo/blob/main/NOTICE) file
-carries the licence terms of each, including the media files.
+lists the licence terms of each, including the media files.
