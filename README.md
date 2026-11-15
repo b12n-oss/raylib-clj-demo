@@ -124,14 +124,14 @@ steals the screen while it runs, so leave the machine alone.
 ## Lint
 
 `bb lint` runs clj-kondo over every demo. Errors fail it and warnings are
-reported, the same check raylib-clj uses. The 68 warnings today, mostly unused
-bindings, came over with the code. `bb lint:strict` fails on warnings too.
+reported, the same check raylib-clj uses. It reports no warnings today, so
+`bb lint:strict`, which fails on warnings too, passes as well.
 
 ## CI and the site
 
 `ci.yml` runs on macOS with Homebrew's raylib: `bb doctor`, `bb gen --check`,
-`bb sync-recordings --check`, `bb lint` and `bb check`, on every push and pull
-request. `site.yml` builds `docs/` with
+`bb sync-recordings --check`, `bb lint` and `bb check`, on every pull request
+to main and every push to main. `site.yml` builds `docs/` with
 [docs-engine](https://github.com/jlt-commons/docs-engine) into the gallery,
 runs `docs/check-site.sh` against it, and deploys to GitHub Pages from main. To
 build it locally with a docs-engine checkout next to this repo:
