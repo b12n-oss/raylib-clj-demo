@@ -76,8 +76,8 @@ own directory, because the 15 that load images, sounds or shaders find them in
 `./resources` by relative path. The root `deps.edn` also has an alias per demo
 (`clojure -M:asteroids`), and those work for every demo that loads no files.
 
-Most demos start an embedded nREPL on port 7888 for live development, and carry
-on without it when the port is taken.
+Most demos start an embedded nREPL on port 7888 for live development, and run
+fine without it when the port is taken.
 
 ## Moving to a newer raylib-clj
 
@@ -124,7 +124,7 @@ steals the screen while it runs, so leave the machine alone.
 ## Lint
 
 `bb lint` runs clj-kondo over every demo. Errors fail it and warnings are
-reported, the same gate raylib-clj uses. The 68 warnings today, mostly unused
+reported, the same check raylib-clj uses. The 68 warnings today, mostly unused
 bindings, came over with the code. `bb lint:strict` fails on warnings too.
 
 ## CI and the site
