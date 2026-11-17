@@ -169,7 +169,7 @@
                                      m (re-find (re-pattern "version \"(\\d+)") (or v ""))]
                                  (some-> m second Long/parseLong))
                                (catch Exception _ nil))
-               lib-paths ["/opt/homebrew/lib/libraylib.6.0.0.dylib" "/usr/local/lib/libraylib.6.0.0.dylib"
+               lib-paths ["/opt/homebrew/lib/libraylib.dylib" "/usr/local/lib/libraylib.dylib"
                           "/usr/lib/libraylib.so" "/usr/local/lib/libraylib.so"
                           "/usr/lib/x86_64-linux-gnu/libraylib.so"]
                checks [["java 22+ (coffi needs the final FFM API)" (and java-major (>= java-major 22))
@@ -182,7 +182,7 @@
                              (str/includes? (:out (shell {:out :string :err :string :continue true} "clojure" "-Spath"))
                                             "raylib-clj"))
                         "check network access to github.com, then common/deps.edn's :git/sha"]
-                       ["libraylib 6.0" (some fs/exists? lib-paths)
+                       ["libraylib 6.0+" (some fs/exists? lib-paths)
                         "brew install raylib, or your distro's raylib package (6.0+)"]
                        ["demos.edn" (fs/exists? "demos.edn") "restore it from git"]]]
            (doseq [[what ok fix] checks]
